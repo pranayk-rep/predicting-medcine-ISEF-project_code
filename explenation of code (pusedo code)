@@ -58,6 +58,7 @@ FUNCTION evaluateModel(model, testingData):
 
     // Calculate accuracy
     SET accuracy TO (correct / total number of instances in testingData)
+  //accruacy is 100% based on the data and no mismatch of the data 
 
     // Print the accuracy of the model
     PRINT "Accuracy: " + accuracy
