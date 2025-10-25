@@ -1,0 +1,41 @@
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.classifiers.trees.RandomForest;
+import weka.classifiers.Evaluation;
+import weka.core.Instances;
+
+import java.util.Random;
+
+public class MedicationRandomForest {
+    public static void main(String[] args) throws Exception {
+        // Load dataset (replace with your actual CSV or ARFF file)
+        DataSource source = new DataSource("data/Personalized_Medication.arff");
+        Instances dataset = source.getDataSet();
+
+        // Set the class index (last column is usually the target)
+        if (dataset.classIndex() == -1)
+            dataset.setClassIndex(dataset.numAttributes() - 1);
+
+        // Create the Random Forest model
+        RandomForest rf = new RandomForest();
+        rf.setNumTrees(200); // number of trees
+        rf.setMaxDepth(0);   // 0 = unlimited depth
+        rf.setNumFeatures(0); // 0 = auto select
+
+        // Train/test split (70/30)
+        int trainSize = (int) Math.round(dataset.numInstances() * 0.7);
+        int testSize = dataset.numInstances() - trainSize;
+        Instances train = new Instances(dataset, 0, trainSize);
+        Instances test = new Instances(dataset, trainSize, testSize);
+
+        // Train model
+        rf.buildClassifier(train);
+
+        // Evaluate
+        Evaluation eval = new Evaluation(train);
+        eval.evaluateModel(rf, test);
+
+        System.out.println("Accuracy: " + (1 - eval.errorRate()));
+        System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+    }
+}
+
