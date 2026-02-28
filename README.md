@@ -13,3 +13,7 @@ PharmGKB (www.pharmgkb.org) – Contains information on how genetic variation af
 
 update: training data set used is : https://www.kaggle.com/datasets/ziya07/personalized-medication-dataset/data 
 uses random forest model for AI prediction 
+
+update 2/28/26 : 
+updated the code into my project (imported through VS code) 
+ yet to slove WEKA errors 
